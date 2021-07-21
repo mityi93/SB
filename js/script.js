@@ -12,7 +12,8 @@ sidebarToggleBtn.onclick = function () {
 
 const slides = document.querySelectorAll('.slider_wrp-items'),
 	item = document.querySelectorAll('.slider_wrp-items'),
-	dots = document.querySelectorAll('.dot');
+	dots = document.querySelectorAll('.dot'),
+	next = document.getElementById('next');
 
 let index = 0;
 
@@ -40,7 +41,18 @@ const activeDot = n => {
 
 const CurrentSlide = ind => {
 	activeItem(ind);
+	activeDot(ind);
+}
 
+const nextSlide = () => {
+	if (index == slides.length - 1) { //если index на последней точке то ему присваевается начальное значение index=0 и выполняется функция activeSlide и activeDot
+		index = 0;
+		activeSlide(index);
+	} else { //если index не на последней точке то он делает 1 шаг вперед
+		index++;
+		activeSlide(index);
+		activeDot(index);
+	}
 }
 
 dots.forEach((item, indexDot) => {
@@ -50,3 +62,5 @@ dots.forEach((item, indexDot) => {
 		activeDot(index);
 	})
 })
+
+const interval = setInterval(nextSlide, 6000);
